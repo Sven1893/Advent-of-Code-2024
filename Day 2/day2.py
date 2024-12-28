@@ -12,6 +12,7 @@ with open("input.txt","r") as input:
 
 
 safeRoutes = 0
+unsafeRoutes = []
 
 for element in list:
     isSafe = True
@@ -35,7 +36,34 @@ for element in list:
         isSafe = False
     if isSafe:
         safeRoutes += 1
+    if not isSafe:
+        unsafeRoutes.append(element)   
 
+for element in unsafeRoutes:
+    isSafe = False
+    
+    for j in range (len(element)):
+        poppedElement = element.pop(j)
+        for i in range (len(element)-1):
+            if element[i] <= element[i+1]:
+                isSafe = False
+                element.append(poppedElement)
+                break
+            if element[i] - 3 > element[i+1]:
+                isSafe = False
+                element.append(poppedElement)
+                break
+            if element[i] >= element[i+1]:
+                isSafe = False
+                element.append(poppedElement)
+                break
+            if element[i] + 3 < element[i+1]:
+                isSafe = False
+                element.append(poppedElement)
+                break
+            isSafe = True
+            if isSafe:
+                safeRoutes +=1
 
 print(safeRoutes)
 
